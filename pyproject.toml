@@ -1,19 +1,58 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools>=64", "setuptools-scm>=8", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "mcmaps"
-version = "0.1.0"
 description = "A package providing custom colormaps"
 readme = "README.md"
 requires-python = ">=3.7"
 license = {text = "MIT"}
 authors = [{name = "Hamid Ali Syed", email = "hamidsyed37@gmail.com"}]
-dependencies = ["pandas>=1.0", "matplotlib>=3.0"]
+maintainers = [{name = "Hamid Ali Syed", email = "hamidsyed37@gmail.com"}]
+classifiers = []
+dynamic = ["version", "dependencies"]
 
 [tool.setuptools.package-data]
-"mcamps" = ["data/*.csv", "data/*.txt"]
+"mcmaps" = ["data/*.csv", "data/*.txt"]
+
+[project.scripts]
+generate-colormap-gallery = "mcmaps:save_colormap_gallery_html"
 
 [project.urls]
 Homepage = "https://github.com/syedhamidali/mcmaps"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+readme = {file = ["README.md"], content-type = "text/markdown"}
+
+[tool.setuptools_scm]
+write_to = "mcmaps/version.py"
+local_scheme = "no-local-version"
+fallback_version = "9999"
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-cov",
+  "ruff",
+  "black",
+  "pre-commit",
+  "coverage"
+]
+docs = [
+  "sphinx",
+  "pydata-sphinx-theme",
+  "numpydoc",
+  "myst-parser",
+  "matplotlib",
+  "numpy",
+  "pandas"
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py37", "py38", "py39", "py310", "py311"]
+
+[tool.ruff]
+extend-ignore = ["E501"]

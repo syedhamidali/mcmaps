@@ -1,0 +1,34 @@
+name: Generate Colormap Gallery
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up micromamba
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-name: mcmaps-env
+          create-args: >-
+            python=3.12
+            matplotlib
+            pandas
+
+      - name: Generate colormap gallery HTML
+        shell: bash -l {0}
+        run: |
+          python -c "from mcmaps import save_colormap_gallery_html; save_colormap_gallery_html()"
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update colormap gallery [skip ci]"
+          file_pattern: docs/colormap_gallery.html
