@@ -1,14 +1,18 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.4
 Name: mcmaps
-Version: 0.1.0
+Version: 0.1.dev1
 Summary: A package providing custom colormaps
 Author-email: Hamid Ali Syed <hamidsyed37@gmail.com>
+Maintainer-email: Hamid Ali Syed <hamidsyed37@gmail.com>
 License: MIT
 Project-URL: Homepage, https://github.com/syedhamidali/mcmaps
 Requires-Python: >=3.7
 Description-Content-Type: text/markdown
-Requires-Dist: pandas>=1.0
-Requires-Dist: matplotlib>=3.0
+Provides-Extra: docs
+Requires-Dist: sphinx; extra == "docs"
+Requires-Dist: sphinx-rtd-theme; extra == "docs"
+Provides-Extra: tests
+Requires-Dist: pytest; extra == "tests"
 
 # mcmaps
 

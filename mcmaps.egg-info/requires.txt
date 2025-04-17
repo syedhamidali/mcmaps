@@ -1,2 +1,7 @@
-pandas>=1.0
-matplotlib>=3.0
+
+[docs]
+sphinx
+sphinx-rtd-theme
+
+[tests]
+pytest
