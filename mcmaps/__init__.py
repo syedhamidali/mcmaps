@@ -1,4 +1,4 @@
-"""Top-level package for radarx."""
+"""Top-level package for mcmaps."""
 
 __author__ = """Hamid Ali Syed"""
 __email__ = "hamidsyed37@gmail.com"
