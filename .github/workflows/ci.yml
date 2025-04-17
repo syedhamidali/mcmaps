@@ -80,5 +80,5 @@ jobs:
           commit_message: "chore: update colormap gallery [skip ci]"
           file_pattern: docs/colormap_gallery.html
           token: ${{ secrets.GH_PUSH_TOKEN }}
-          commit_user_name: "Hamid Ali Syed"
-          commit_user_email: "hamidsyed37@gmail.com"
+          commit_user_name: "syedhamidali"
+          commit_user_email: "35923822+syedhamidali@users.noreply.github.com"
