@@ -166,57 +166,51 @@ def save_all_colormaps_preview(output_dir="docs/colormaps", width=6, height=1):
         plt.close(fig)
 
 
-def save_colormap_gallery_html(
-    output_path="docs/colormap_gallery.html", width=256, height=20
-):
+def _get_cmap_gallery_html(cmaps: dict, sort_d: bool = False) -> str:
     """
-    Save an HTML gallery of all registered colormaps for visual reference.
+    Generate an HTML gallery string for a dictionary of colormaps.
 
     Parameters
     ----------
-    output_path : str
-        Path to the output HTML file.
-    width : int
-        Width of each colormap image in pixels.
-    height : int
-        Height of each colormap image in pixels.
+    cmaps : dict
+        A dictionary where keys are colormap names and values are matplotlib colormap objects.
+    sort_d : bool, optional
+        Whether to sort colormap names alphabetically, by default False.
+
+    Returns
+    -------
+    str
+        A string containing HTML that visually displays all colormaps.
     """
     import base64
-    import io
-    import matplotlib.pyplot as plt
-    import numpy as np
-    import os
 
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    gradient = np.linspace(0, 1, 256).reshape(1, -1)
+    def _cmap_div(cmap):
+        """
+        Generate a single colormap preview div in base64-encoded PNG.
+        """
+        png_bytes = cmap._repr_png_()
+        png_base64 = base64.b64encode(png_bytes).decode("ascii")
+
+        return (
+            f'<div class="cmap-block" style="margin-bottom: 16px;">'
+            f"<div><strong>{cmap.name}</strong></div>"
+            f'<img alt="{cmap.name}" title="{cmap.name}" '
+            f'style="border: 1px solid #aaa; display: block;" '
+            f'src="data:image/png;base64,{png_base64}"/>'
+            f"</div>"
+        )
+
+    cm_names = [name for name in cmaps if not name.endswith("_r")]
+    if sort_d:
+        cm_names.sort()
 
     html = [
         "<html><head><style>",
-        "body { font-family: sans-serif; background: #f8f8f8; padding: 20px; }",
-        ".cmap-img { margin-bottom: 20px; }",
-        "img { border: 1px solid #ccc; display: block; margin-top: 5px; }",
+        "body { font-family: sans-serif; padding: 20px; background-color: #f8f8f8; }",
+        ".cmap-block { display: inline-block; margin-right: 16px; }",
         "</style></head><body><h1>Colormap Gallery</h1>",
     ]
-
-    for name in cm.list_colormaps(include_reversed=False):
-        cmap = getattr(cm, name)
-        fig, ax = plt.subplots(figsize=(width / 100, height / 100), dpi=100)
-        ax.imshow(gradient, aspect="auto", cmap=cmap)
-        ax.axis("off")
-        plt.tight_layout(pad=0)
-
-        buf = io.BytesIO()
-        fig.savefig(buf, format="png", bbox_inches="tight", pad_inches=0)
-        buf.seek(0)
-        plt.close(fig)
-
-        img_b64 = base64.b64encode(buf.read()).decode("utf-8")
-        html.append(f'<div class="cmap-img"><strong>{name}</strong>')
-        html.append(
-            f'<img src="data:image/png;base64,{img_b64}" width="{width}" height="{height}"></div>'
-        )
-
+    html.extend(_cmap_div(cmaps[name]) for name in cm_names)
     html.append("</body></html>")
 
-    with open(output_path, "w") as f:
-        f.write("\n".join(html))
+    return "\n".join(html)

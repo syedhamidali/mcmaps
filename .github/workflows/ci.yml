@@ -70,14 +70,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install .[docs]
+      - name: Generate colormap gallery HTML
+        run: |
+          python -m mcmaps.generate_gallery
       - name: Build HTML docs
         run: |
           cd docs
           make html
-      - name: Commit and push gallery with PAT
-        run: |
-          git config user.name "syedhamidali"
-          git config user.email "hamidsyed37@gmail.com"
-          git add docs/colormap_gallery.html
-          git commit -m "chore: update colormap gallery [skip ci]" || echo "No changes to commit"
-          git push https://x-access-token:${{ secrets.GH_PUSH_TOKEN }}@github.com/syedhamidali/mcmaps.git HEAD:main
