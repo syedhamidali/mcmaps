@@ -32,8 +32,23 @@ local_scheme = "no-local-version"
 fallback_version = "9999"
 
 [project.optional-dependencies]
-docs = ["sphinx", "sphinx-rtd-theme"]
-tests = ["pytest"]
+dev = [
+  "pytest",
+  "pytest-cov",
+  "ruff",
+  "black",
+  "pre-commit",
+  "coverage"
+]
+docs = [
+  "sphinx",
+  "pydata-sphinx-theme",
+  "numpydoc",
+  "myst-parser",
+  "matplotlib",
+  "numpy",
+  "pandas"
+]
 
 [tool.black]
 line-length = 88
