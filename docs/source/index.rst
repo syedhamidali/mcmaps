@@ -20,3 +20,9 @@ API Reference
    :undoc-members:
    :show-inheritance:
    :noindex:
+
+Colormap Gallery
+==================
+
+.. raw:: html
+   :file: _static/colormap_gallery.html

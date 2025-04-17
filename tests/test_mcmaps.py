@@ -2,6 +2,9 @@ import mcmaps
 import numpy as np
 import matplotlib.pyplot as plt
 
+from mcmaps import cm
+from mcmaps.__init__ import _get_cmap_gallery_html
+
 
 def test_load_and_register_colormaps():
     """Test that colormaps are loaded and registered correctly."""
@@ -59,18 +62,26 @@ def test_save_all_colormaps_preview():
     plt.close(fig)
 
 
-def test_save_colormap_gallery_html():
-    """Test and save an HTML gallery of all registered colormaps."""
-    from mcmaps import cm
+def test_get_cmap_gallery_html_basic():
+    html_output = _get_cmap_gallery_html(cm._colormaps)
+    assert "<div" in html_output
+    assert "img" in html_output
+    for name in cm.list_colormaps():
+        assert f'alt="{name}"' in html_output
+        assert f'title="{name}"' in html_output
 
-    output_path = "docs/colormap_gallery.html"
-    colormaps = cm.list_colormaps(include_reversed=False)
 
-    with open(output_path, "w") as f:
-        f.write("<html><body>\n")
-        for name in colormaps:
-            f.write(f"<h2>{name}</h2>\n")
-            f.write(
-                f"<div style='background: {getattr(cm, name)(0)}; width: 100px; height: 100px;'></div>\n"
-            )
-        f.write("</body></html>\n")
+def test_get_cmap_gallery_html_sorted():
+    from bs4 import BeautifulSoup
+
+    def extract_names(html):
+        soup = BeautifulSoup(html, "html.parser")
+        return [strong.get_text() for strong in soup.find_all("strong")]
+
+    html_unsorted = _get_cmap_gallery_html(cm._colormaps, sort_d=False)
+    html_sorted = _get_cmap_gallery_html(cm._colormaps, sort_d=True)
+
+    names_unsorted = extract_names(html_unsorted)
+    names_sorted = extract_names(html_sorted)
+
+    assert sorted(names_unsorted) == names_sorted
