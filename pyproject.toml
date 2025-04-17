@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcmaps"
+version = "0.1.0"
+description = "A package providing custom colormaps"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [{name = "Hamid Ali Syed", email = "hamidsyed37@gmail.com"}]
+dependencies = ["pandas>=1.0", "matplotlib>=3.0"]
+
+[tool.setuptools.package-data]
+"mcamps" = ["data/*.csv", "data/*.txt"]
+
+[project.urls]
+Homepage = "https://github.com/syedhamidali/mcmaps"
