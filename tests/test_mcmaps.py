@@ -63,7 +63,7 @@ def test_save_colormap_gallery_html():
     """Test and save an HTML gallery of all registered colormaps."""
     from mcmaps import cm
 
-    output_path = "docs/test_colormap_gallery.html"
+    output_path = "docs/colormap_gallery.html"
     colormaps = cm.list_colormaps(include_reversed=False)
 
     with open(output_path, "w") as f:
