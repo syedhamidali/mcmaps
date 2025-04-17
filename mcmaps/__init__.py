@@ -1,4 +1,4 @@
-"""Top-level package for radarx."""
+"""Top-level package for mcmaps."""
 
 __author__ = """Hamid Ali Syed"""
 __email__ = "hamidsyed37@gmail.com"
@@ -208,7 +208,7 @@ def _get_cmap_gallery_html(cmaps: dict, sort_d: bool = False) -> str:
         "<html><head><style>",
         "body { font-family: sans-serif; padding: 20px; background-color: #f8f8f8; }",
         ".cmap-block { display: inline-block; margin-right: 16px; }",
-        "</style></head><body><h1>Colormap Gallery</h1>",
+        # "</style></head><body><h1>Colormap Gallery</h1>",
     ]
     html.extend(_cmap_div(cmaps[name]) for name in cm_names)
     html.append("</body></html>")
