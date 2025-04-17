@@ -10,13 +10,7 @@ python:
   install:
     - method: pip
       path: .
-    - method: pip
-      packages:
-        - sphinx
-        - pydata-sphinx-theme
-        - matplotlib
-        - pandas
-        - numpydoc
+    - requirements: docs/requirements.txt
 
 sphinx:
   configuration: docs/source/conf.py

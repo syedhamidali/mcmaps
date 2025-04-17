@@ -57,3 +57,20 @@ def test_save_all_colormaps_preview():
     os.makedirs("tests/output", exist_ok=True)
     plt.savefig("tests/output/all_colormaps_preview.png", dpi=150)
     plt.close(fig)
+
+
+def test_save_colormap_gallery_html():
+    """Test and save an HTML gallery of all registered colormaps."""
+    from mcmaps import cm
+
+    output_path = "docs/colormap_gallery.html"
+    colormaps = cm.list_colormaps(include_reversed=False)
+
+    with open(output_path, "w") as f:
+        f.write("<html><body>\n")
+        for name in colormaps:
+            f.write(f"<h2>{name}</h2>\n")
+            f.write(
+                f"<div style='background: {getattr(cm, name)(0)}; width: 100px; height: 100px;'></div>\n"
+            )
+        f.write("</body></html>\n")

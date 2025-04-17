@@ -27,9 +27,10 @@ jobs:
         run: |
           python -c "from mcmaps import save_colormap_gallery_html; save_colormap_gallery_html()"
 
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore: update colormap gallery [skip ci]"
-          file_pattern: docs/colormap_gallery.html
-          token: ${{ secrets.GH_PUSH_TOKEN }}
+      - name: Commit and push gallery with PAT
+        run: |
+          git config user.name "syedhamidali"
+          git config user.email "hamidsyed37@gmail.com"
+          git add docs/colormap_gallery.html
+          git commit -m "chore: update colormap gallery [skip ci]" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.GH_PUSH_TOKEN }}@github.com/syedhamidali/mcmaps.git HEAD:main
