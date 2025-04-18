@@ -16,6 +16,9 @@ dynamic = ["version", "dependencies"]
 [tool.setuptools.package-data]
 "mcmaps" = ["data/*.csv", "data/*.txt"]
 
+[tool.setuptools.packages.find]
+where = ["mcmaps"]
+
 [project.scripts]
 generate-colormap-gallery = "mcmaps:save_colormap_gallery_html"
 
