@@ -51,7 +51,8 @@ docs = [
   "myst-parser",
   "matplotlib",
   "numpy",
-  "pandas"
+  "pandas",
+  "scipy",
 ]
 
 [tool.black]
