@@ -10,7 +10,9 @@ Welcome to mcmaps's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   installation
    api
+   auto_examples/index
 
 API Reference
 =============

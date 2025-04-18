@@ -7,11 +7,14 @@ name = "mcmaps"
 description = "A package providing custom colormaps"
 readme = "README.md"
 requires-python = ">=3.7"
-license = {text = "MIT"}
+license = "MIT"
 authors = [{name = "Hamid Ali Syed", email = "hamidsyed37@gmail.com"}]
 maintainers = [{name = "Hamid Ali Syed", email = "hamidsyed37@gmail.com"}]
 classifiers = []
 dynamic = ["version", "dependencies"]
+
+[tool.setuptools]
+packages = ["mcmaps"]
 
 [tool.setuptools.package-data]
 "mcmaps" = ["data/*.csv", "data/*.txt"]
@@ -38,16 +41,18 @@ dev = [
   "ruff",
   "black",
   "pre-commit",
-  "coverage"
+  "coverage",
 ]
 docs = [
   "sphinx",
+  "sphinx-gallery",
   "pydata-sphinx-theme",
   "numpydoc",
   "myst-parser",
   "matplotlib",
   "numpy",
-  "pandas"
+  "pandas",
+  "scipy",
 ]
 
 [tool.black]
