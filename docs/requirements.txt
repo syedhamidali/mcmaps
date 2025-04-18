@@ -6,3 +6,5 @@ matplotlib
 pandas
 numpydoc
 BeautifulSoup4
+build
+twine

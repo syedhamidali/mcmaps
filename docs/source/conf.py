@@ -15,7 +15,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath("../../"))
 import mcmaps
-
+from sphinx_gallery.sorting import FileNameSortKey
 
 # -- Project information -----------------------------------------------------
 
@@ -35,7 +35,17 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
     "sphinx.ext.autosummary",
+    "sphinx_gallery.gen_gallery",
 ]
+
+sphinx_gallery_conf = {
+    "examples_dirs": "../../Examples",
+    "gallery_dirs": "auto_examples",
+    "filename_pattern": r".*\.py",  # <- ensure all .py scripts are processed
+    "within_subsection_order": FileNameSortKey,
+    "remove_config_comments": True,
+    "first_notebook_cell": ("%matplotlib inline"),
+}
 
 autosummary_generate = True
 autoclass_content = "both"
